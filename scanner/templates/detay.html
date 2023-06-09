@@ -1,0 +1,112 @@
+{% csrf_token %}
+<html lang="en">
+  <head>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/css/bootstrap.min.css"
+    />
+    <title>Scanner</title>
+  </head>
+  <body>
+  <div class="container">
+    <div class="row">
+      <div class="col-6 mt-3">
+        <h2>Nmap</h2>
+          <form action="{% url 'port_scan' %}" method="POST">
+          {% csrf_token %}
+          <div class="form-group mt-3">
+            <label for="" class="text-align-center">
+              Hedef IP Adresi Giriniz :</label
+            >
+            <input
+              type="text"
+              id="ip_address"
+              name="ip_address"
+              placeholder="10.10.10.10"
+              class="for-control me-1"
+              style="border-radius: 25px"
+            />
+            <br>
+            <button
+              type="submit"
+              class="btn btn-primary mt-3"
+              onclick="Uyari()"
+            >
+              Taramayı Başlat
+            </button>
+          </div>
+        </form>
+        <p><label>Hedef IP Adresinin Tarama Çıktısı : </label></p>
+
+        <textarea
+          rows="20"
+          cols="60"
+          id="output"
+          readonly
+          style="border-radius: 25px"
+        >
+               {{result}}</textarea
+        >
+      </div>
+      <div class="col-6 mt-3"> 
+        <h2>Scapy</h2>
+          <form action="{% url 'dinleme' %}" method="POST">
+          {% csrf_token %}
+          <div class="form-group mt-3 " class="text-align-center" >
+               <label for="" class="text-align-center">
+                  Ağ Arayüzü Giriniz :</label
+            >
+             <input
+              type="text"
+              id="agturu"
+              name="agturu"
+              placeholder="Wi-Fi"
+              class="for-control me-1"
+              style="border-radius: 25px"
+            /> <br>
+             <label for="" class="text-align-center">
+                Paket Sayısını Giriniz :</label>
+              <input
+              type="number"
+              id="paketdegeri"
+              name="paketdegeri"
+              placeholder="Paket Sayısı"
+              class="for-control mt-3"
+              style="border-radius: 25px"
+            />
+            <br>
+            <button
+              type="submit"
+              class="btn btn-success mt-3"
+              onclick=""
+            >
+              Dinlemeye Başlat
+            </button>
+           </div> 
+          </form>  
+            <p><label>Ağ Trafiği Dinlenilen Paketler Çıktısı : </label></p>
+          <textarea
+          rows="20"
+          cols="60"
+          id="output"
+          readonly
+          style="border-radius: 25px"
+        >
+            {% for item in sonuc %}           
+              {{ item }}\n
+            {% endfor %}
+               </textarea
+        >  
+       </div>
+    </div>
+  </div>
+  <div id="scan-results"></div>
+  <script src="{% static 'path/to/script.js' %}"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/js/bootstrap.min.js"></script>
+  </body>
+                     <script>
+                        function Uyari() {
+                          alert("Lütfen Bekleyiniz bu işlem birkaç dakika sürebilir...");
+                        }
+                      </script>
+</html>
